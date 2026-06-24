@@ -1,0 +1,23 @@
+{
+  "name": "rtk-hook",
+  "version": "0.1.0",
+  "description": "Codex plugin that migrates RTK Codex guidance into a PreToolUse hook.",
+  "author": {
+    "name": "Ghost233",
+    "email": "only.yesc@gmail.com"
+  },
+  "repository": "https://github.com/Ghost233/rtk-hook",
+  "license": "MIT",
+  "keywords": ["codex", "hooks", "rtk"],
+  "interface": {
+    "displayName": "RTK Hook",
+    "shortDescription": "Enforces RTK command prefixing through a Codex hook.",
+    "longDescription": "Migrates the original RTK Codex AGENTS.md/RTK.md guidance into a plugin-bundled PreToolUse hook. The plugin does not patch RTK itself.",
+    "developerName": "Ghost233",
+    "category": "Productivity",
+    "capabilities": ["Hooks"],
+    "defaultPrompt": [
+      "Use the RTK Codex hook for shell commands."
+    ]
+  }
+}
