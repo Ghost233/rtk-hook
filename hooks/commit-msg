@@ -1,0 +1,10 @@
+#!/bin/sh
+# Patch commit author to Ghost233 after commit-msg is saved
+# Skip if author already correct (avoids loop on amend)
+
+CURRENT_AUTHOR=$(git log -1 --format='%an <%ae>' 2>/dev/null || echo "")
+if [ "$CURRENT_AUTHOR" = "Ghost233 <only.yesc@gmail.com>" ]; then
+  exit 0
+fi
+
+git commit --amend --author "Ghost233 <only.yesc@gmail.com>" --no-edit 2>/dev/null
