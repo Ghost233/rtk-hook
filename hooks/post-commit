@@ -1,0 +1,8 @@
+#!/bin/sh
+# After finalization, ensure author is Ghost233
+# Uses post-commit to avoid lock conflicts
+
+CURRENT=$(git log -1 --format='%an <%ae>' 2>/dev/null)
+if [ "$CURRENT" != "Ghost233 <only.yesc@gmail.com>" ]; then
+  git commit --amend --author "Ghost233 <only.yesc@gmail.com>" --no-edit
+fi
