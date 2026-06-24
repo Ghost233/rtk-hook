@@ -1,6 +1,21 @@
 #!/bin/sh
-# Force commit author to Ghost233
-# This runs every commit, ensuring correct identity
+# Abort commit if author or committer is not Ghost233
 
-git config user.name "Ghost233"
-git config user.email "only.yesc@gmail.com"
+EXPECTED="Ghost233 <only.yesc@gmail.com>"
+AUTHOR=$(git var GIT_AUTHOR_IDENT 2>/dev/null | sed 's/^\(.*<.*>\).*/\1/')
+COMMITTER=$(git var GIT_COMMITTER_IDENT 2>/dev/null | sed 's/^\(.*<.*>\).*/\1/')
+
+if [ "$AUTHOR" != "$EXPECTED" ] || [ "$COMMITTER" != "$EXPECTED" ]; then
+  cat >&2 <<EOF
+ERROR: Commit identity mismatch
+  author:    $AUTHOR
+  committer: $COMMITTER
+  expected:  $EXPECTED
+
+Fix with:
+  git config user.name "Ghost233"
+  git config user.email "only.yesc@gmail.com"
+  unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL
+EOF
+  exit 1
+fi
